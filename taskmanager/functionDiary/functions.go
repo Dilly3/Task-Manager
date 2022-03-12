@@ -35,7 +35,7 @@ func Writer(items []Item) error {
 	if marshalErr != nil {
 		log.Fatal(marshalErr)
 	}
-	ioutilErr := ioutil.WriteFile("tasks.csv", byteArr, 0644)
+	ioutilErr := ioutil.WriteFile("./tasks.csv", byteArr, 0644)
 	if ioutilErr != nil {
 		return ioutilErr
 	}
@@ -46,7 +46,7 @@ func Reader() ([]Item, error) {
 	var unMarshalErr error
 	var ioutilErr error
 
-	byteArr, ioutilErr = ioutil.ReadFile("tasks.csv")
+	byteArr, ioutilErr = ioutil.ReadFile("./tasks.csv")
 	if unMarshalErr != nil {
 		log.Fatal("reader failed to read in Reader Function", ioutilErr)
 		return []Item{}, ioutilErr

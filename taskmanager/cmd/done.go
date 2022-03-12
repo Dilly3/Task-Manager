@@ -5,10 +5,7 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
 	"github.com/spf13/cobra"
-	"log"
-	"strconv"
 	diary "taskmanager/taskmanager/functionDiary"
 )
 
@@ -21,7 +18,9 @@ var doneCmd = &cobra.Command{
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
-	Run: Done,
+	Run: func(cmd *cobra.Command, args []string) {
+		diary.Done(args...)
+	},
 }
 
 func init() {
@@ -36,23 +35,4 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// doneCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-}
-
-func Done(cmd *cobra.Command, args []string) {
-	tasks, readErr := diary.Reader()
-	var index int
-	var nowTime = diary.TimeFormat()
-	if readErr != nil {
-		log.Fatal("Didnt read file: done.go, Ln 43", readErr)
-	}
-	index, _ = strconv.Atoi(args[0])
-	if (index > 0) && (index <= len(tasks)) {
-		tasks[index-1].EditToDone()
-		writerErr := diary.Writer(tasks)
-		if writerErr != nil {
-			log.Fatal(writerErr)
-		}
-
-		fmt.Printf("%v Done %s\n", tasks[index-1].Event, nowTime)
-	}
 }
