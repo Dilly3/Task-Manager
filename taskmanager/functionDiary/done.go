@@ -10,6 +10,7 @@ func Done(args ...string) string {
 	var event1 string
 	var taskD string
 	tasks, readErr := Reader()
+
 	var index int
 	var nowTime = TimeFormat()
 	if readErr != nil {
@@ -18,7 +19,7 @@ func Done(args ...string) string {
 
 	index, _ = strconv.Atoi(args[0])
 	if (index > 0) && (index <= len(tasks)) {
-
+		tasks[index-1].EditToDone()
 		for _, task := range tasks {
 			if task.Serial == index {
 

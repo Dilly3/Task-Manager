@@ -5,10 +5,8 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
 	"github.com/spf13/cobra"
-	"log"
-	"os"
+	"taskmanager/taskmanager/functionDiary"
 )
 
 // clearlistCmd represents the clearlist command
@@ -21,7 +19,9 @@ and usage of using your command. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
-	Run: ClearList,
+	Run: func(cmd *cobra.Command, args []string) {
+		functionDiary.ClearList()
+	},
 }
 
 func init() {
@@ -36,13 +36,4 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// clearlistCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-}
-
-func ClearList(cmd *cobra.Command, args []string) {
-
-	_, osErr := os.OpenFile("tasks.csv", os.O_TRUNC, 0644)
-	if osErr != nil {
-		log.Fatal(osErr)
-	}
-	fmt.Println(" All Tasks Removed")
 }
