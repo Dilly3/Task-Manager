@@ -115,18 +115,18 @@ func TimeFormat() string {
 	var myTime string
 	if hrs > 12 {
 		hrs = hrs - 12
-		myTime = fmt.Sprintf("\t\t%10v : %02v:%02v:%02vPM", day, hrs, min, sec)
+		myTime = fmt.Sprintf("%15v : %02v:%02v:%02vPM", day, hrs, min, sec)
 	} else if hrs < 12 {
-		myTime = fmt.Sprintf("\t\t%v : %02v:%02v:%02vAM", day, hrs, min, sec)
+		myTime = fmt.Sprintf("%15v : %02v:%02v:%02vAM", day, hrs, min, sec)
 	} else {
 		hrs = 00
-		myTime = fmt.Sprintf("\t\t%v : %02v:%02v:%02vAM", day, hrs, min, sec)
+		myTime = fmt.Sprintf("%15v : %02v:%02v:%02vAM", day, hrs, min, sec)
 	}
 	return strings.TrimLeft(myTime, " ")
 }
 func EditToUndone(item *models.Item) *models.Item {
 	item.Status = "undone"
-	item.Edited = TimeFormat()
+	item.Edited = time.Now().Format(time.RFC1123Z)
 	return item
 
 }

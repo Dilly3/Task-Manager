@@ -2,9 +2,11 @@ package functiondiary
 
 import (
 	"fmt"
+	"log"
+	"time"
+
 	"github.com/dilly3/task-manager/models"
 	"github.com/dilly3/task-manager/utils"
-	"log"
 )
 
 func Add(args ...string) []models.Item {
@@ -21,10 +23,10 @@ func Add(args ...string) []models.Item {
 	}
 	if len(itemsArr) < 1 {
 		itemsArr = append(itemsArr, models.Item{Serial: 1, Event: utils.CreateString(args), Status: "undone",
-			Created: utils.TimeFormat(), Edited: " ", DoneTime: " "})
+			Created: time.Now().Format(time.RFC1123Z), Edited: " ", DoneTime: " "})
 	} else {
 		itemsArr = append(itemsArr, models.Item{Serial: len(itemsArr) + 1, Event: utils.CreateString(args), Status: "undone",
-			Created: utils.TimeFormat(), Edited: " ", DoneTime: " "})
+			Created: time.Now().Format(time.RFC1123Z), Edited: " ", DoneTime: " "})
 	}
 
 	writerErr := utils.Writer(itemsArr)
